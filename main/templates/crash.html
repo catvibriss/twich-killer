@@ -1,0 +1,487 @@
+{% extends 'base.html' %}
+{% block scripts %}
+{% endblock %}
+{% load static %}
+{% block title %}Рулетка - KAFFIFisee{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рулетка - KAFOFISssue</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="{% static 'js/crash.js' %}"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 10px;
+        }
+        
+        .game-layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+        
+        .bet-panel {
+            flex: 1;
+            background-color: #1E1E1E;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+        
+        .crash-panel {
+            flex: 1;
+            background-color: #1E1E1E;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #F44336;
+        }
+        
+        .game-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Стили для панели ставок */
+        .bet-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .bet-input input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #2C2C2C;
+            color: white;
+        }
+        
+        .quick-bet {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .quick-bet button {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .multiplier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .multiplier-grid button {
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Стили для Crash игры */
+        .multiplier-display {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            color: #F44336;
+            height: 40px;
+        }
+        
+        .candlestick-chart {
+            height: 200px;
+            width: 100%;
+            background-color: #121212;
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        
+        .candle-column {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 1s ease;
+        }
+        
+        .candle {
+            width: 100%;
+            margin-bottom: 2px;
+            position: relative;
+        }
+        
+        .candle-body {
+            width: 30px;
+            margin: 0 auto;
+            background-color: #F44336;
+            border-radius: 2px;
+        }
+        
+        .candle-wick {
+            width: 2px;
+            height: 10px;
+            background-color: #F44336;
+            margin: 0 auto;
+        }
+        
+        .crash-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #4CAF50;
+            z-index: 10;
+            display: none;
+        }
+        
+        .crash-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .crash-controls input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #2C2C2C;
+            color: white;
+        }
+        
+        .crash-controls button {
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            background-color: #F44336;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .x-axis {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 5px;
+            color: #777;
+            font-size: 12px;
+        }
+        
+        .timer-display {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<h2 class="game-title"><strong>Испытай удачу в рулетке и Crash игре!</strong></h2>
+
+<div class="game-layout">
+    <!-- Панель ставок (слева) -->
+    <div class="bet-panel">
+        <h2>Ваша ставка</h2>
+        <div class="bet-input">
+            <input type="number" id="bet-amount" placeholder="Введите сумму">
+            <button class="half" onclick="adjustBet('half')">1/2</button>
+            <button class="double" onclick="adjustBet('double')">x2</button>
+        </div>
+    
+        <div class="quick-bet">
+            <button onclick="setBet(1)">+1</button>
+            <button onclick="setBet(10)">+10</button>
+            <button onclick="setBet(100)">+100</button>
+            <button onclick="setBet('all')">Все</button>
+        </div>
+        
+        <h2>Выберите множитель</h2>
+        <div class="multiplier-grid">
+            <button class="multiplier x2" onclick="startSpin(20, this)">x2</button>
+            <button class="multiplier x3" onclick="startSpin(40, this)">x3</button>
+            <button class="multiplier x5" onclick="startSpin(60, this)">x5</button>
+            <button class="multiplier x20" onclick="startSpin(80, this)">x20</button>
+        </div>
+        
+        <div class="timer-display">
+            <p>Следующий раунд через: <span id="timer">10</span> сек</p>
+        </div>
+    </div>
+    
+    <!-- Crash игра (справа) -->
+    <div class="crash-panel">
+        <h2>Crash игра</h2>
+        <div class="multiplier-display" id="multiplier">1.00x</div>
+        <div class="candlestick-chart" id="chart">
+            <div class="crash-line" id="crashLine"></div>
+        </div>
+        <div class="x-axis">
+            <span id="minMultiplier">1.00</span>
+            <span>0.00</span>
+        </div>
+        
+        <div class="crash-controls">
+            <input type="number" id="targetMultiplier" placeholder="Цель (напр. 0.37)" step="0.01" max="0.99" min="0.01" value="0.37">
+            <button id="startButton">Старт</button>
+            <button id="cashoutButton" disabled>Забрать</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Код для Crash игры
+    const multiplierDisplay = document.getElementById('multiplier');
+    const chart = document.getElementById('chart');
+    const crashLine = document.getElementById('crashLine');
+    const minMultiplierDisplay = document.getElementById('minMultiplier');
+    const targetMultiplierInput = document.getElementById('targetMultiplier');
+    const startButton = document.getElementById('startButton');
+    const cashoutButton = document.getElementById('cashoutButton');
+    
+    const MAX_COLUMNS = 5;
+    const COLUMN_WIDTH = 40;
+    const COLUMN_SPACING = 10;
+    const BASE_SPEED = 1;
+    const CANDLE_HEIGHT_MULTIPLIER = 2;
+
+    let currentMultiplier = 1.00;
+    let targetMultiplier = 0.37;
+    let crashed = false;
+    let cashingOut = false;
+    let candleInterval;
+    let multiplierInterval;
+    let candleColumns = [];
+    let currentCandle = {
+        open: 1.00,
+        high: 1.00,
+        low: 1.00,
+        close: 1.00
+    };
+    let minMultiplier = 1.00;
+    let speedMultiplier = 1;
+    let animationSpeed = BASE_SPEED;
+
+    function createCandle(candleData) {
+        const candle = document.createElement('div');
+        candle.className = 'candle';
+        
+        const isRed = candleData.close <= candleData.open;
+        const bodyHeight = Math.abs(candleData.close - candleData.open) * 100 * CANDLE_HEIGHT_MULTIPLIER;
+        const maxVal = Math.max(candleData.open, candleData.close);
+        const wickTopHeight = (candleData.high - maxVal) * 100 * CANDLE_HEIGHT_MULTIPLIER;
+        const wickBottomHeight = (Math.min(candleData.open, candleData.close) - candleData.low) * 100 * CANDLE_HEIGHT_MULTIPLIER;
+        
+        candle.innerHTML = `
+            <div class="candle-wick" style="height: ${wickTopHeight}px; margin-bottom: ${(1 - maxVal) * 100 * CANDLE_HEIGHT_MULTIPLIER}%;"></div>
+            <div class="candle-body" style="height: ${bodyHeight}px; background-color: ${isRed ? '#F44336' : '#4CAF50'};"></div>
+            <div class="candle-wick" style="height: ${wickBottomHeight}px;"></div>
+        `;
+        
+        return candle;
+    }
+    
+    function updateChart() {
+        if (candleColumns.length > MAX_COLUMNS) {
+            const removedColumn = candleColumns.shift();
+            if (removedColumn.element && removedColumn.element.parentNode) {
+                removedColumn.element.remove();
+            }
+        }
+        
+        candleColumns.forEach((column, index) => {
+            const xPos = (index * (COLUMN_WIDTH + COLUMN_SPACING)) + 20;
+            column.element.style.left = `${xPos}px`;
+            
+            const translateY = (candleColumns.length - 1 - index) * 15 * animationSpeed;
+            column.element.style.transform = `translateY(${translateY}px)`;
+            
+            const opacity = 1 - (candleColumns.length - 1 - index) * 0.2;
+            column.element.style.opacity = Math.max(0, opacity).toString();
+        });
+    
+        minMultiplier = Math.min(minMultiplier, currentMultiplier);
+        minMultiplierDisplay.textContent = minMultiplier.toFixed(2);
+    }
+    
+    function startGame() {
+        currentMultiplier = 1.00;
+        minMultiplier = 1.00;
+        crashed = false;
+        cashingOut = false;
+        candleColumns = [];
+        currentCandle = {
+            open: 1.00,
+            high: 1.00,
+            low: 1.00,
+            close: 1.00
+        };
+        speedMultiplier = 1;
+        animationSpeed = BASE_SPEED;
+        
+        document.querySelectorAll('.candle-column').forEach(col => col.remove());
+        
+        targetMultiplier = parseFloat(targetMultiplierInput.value) || 0.37;
+        if (targetMultiplier > 0.99) targetMultiplier = 0.99;
+        if (targetMultiplier < 0.01) targetMultiplier = 0.01;
+        
+        crashLine.style.display = 'block';
+        crashLine.style.top = `${(1 - targetMultiplier) * 100}%`;
+        
+        startButton.disabled = true;
+        cashoutButton.disabled = false;
+        
+        multiplierDisplay.textContent = '1.00x';
+        multiplierDisplay.style.color = '#F44336';
+        
+        createNewColumn();
+        
+        candleInterval = setInterval(updateCandle, 500 / speedMultiplier);
+        multiplierInterval = setInterval(updateMultiplier, 50 / speedMultiplier);
+    }
+    
+    function createNewColumn() {
+        const column = document.createElement('div');
+        column.className = 'candle-column';
+        chart.appendChild(column);
+        
+        candleColumns.push({
+            element: column,
+            candles: []
+        });
+    }
+    
+    function updateCandle() {
+        if (crashed || cashingOut) return;
+        
+        if (candleColumns.length === 0 || 
+            candleColumns[candleColumns.length-1].candles.length >= 1) {
+            createNewColumn();
+        }
+        
+        const currentColumn = candleColumns[candleColumns.length-1];
+        currentCandle.close = currentMultiplier;
+        
+        const candleElement = createCandle(currentCandle);
+        currentColumn.element.appendChild(candleElement);
+        currentColumn.candles.push({...currentCandle});
+        
+        currentCandle = {
+            open: currentMultiplier,
+            high: currentMultiplier,
+            low: currentMultiplier,
+            close: currentMultiplier
+        };
+        
+        updateChart();
+        
+        if (currentMultiplier < 0.3 && speedMultiplier === 1) {
+            speedMultiplier = 2;
+            animationSpeed = BASE_SPEED * 2;
+            clearInterval(candleInterval);
+            clearInterval(multiplierInterval);
+            candleInterval = setInterval(updateCandle, 500 / speedMultiplier);
+            multiplierInterval = setInterval(updateMultiplier, 50 / speedMultiplier);
+        }
+    }
+    
+    function updateMultiplier() {
+        if (crashed || cashingOut) return;
+        
+        currentMultiplier -= 0.01 * speedMultiplier;
+        
+        currentCandle.high = Math.max(currentCandle.high, currentMultiplier);
+        currentCandle.low = Math.min(currentCandle.low, currentMultiplier);
+        currentCandle.close = currentMultiplier;
+        
+        if (currentMultiplier <= targetMultiplier) {
+            crashGame();
+            return;
+        }
+        
+        multiplierDisplay.textContent = currentMultiplier.toFixed(2) + 'x';
+        
+        if (currentMultiplier < 0.5) {
+            multiplierDisplay.style.color = '#FF9800';
+        } else if (currentMultiplier < 0.7) {
+            multiplierDisplay.style.color = '#FFC107';
+        }
+    }
+    
+    function crashGame() {
+        crashed = true;
+        clearInterval(candleInterval);
+        clearInterval(multiplierInterval);
+        
+        currentMultiplier = targetMultiplier;
+        multiplierDisplay.textContent = currentMultiplier.toFixed(2) + 'x';
+        multiplierDisplay.style.color = '#4CAF50';
+        
+        currentCandle.close = currentMultiplier;
+        if (candleColumns.length > 0) {
+            const currentColumn = candleColumns[candleColumns.length-1];
+            const candleElement = createCandle(currentCandle);
+            currentColumn.element.appendChild(candleElement);
+            currentColumn.candles.push({...currentCandle});
+        }
+        
+        updateChart();
+        
+        startButton.disabled = false;
+        cashoutButton.disabled = true;
+    }
+    
+    function cashout() {
+        if (crashed || cashingOut) return;
+        
+        cashingOut = true;
+        clearInterval(multiplierInterval);
+        cashoutButton.disabled = true;
+        startButton.disabled = false;
+        
+        multiplierDisplay.style.color = '#FFC107';
+        
+        currentCandle.close = currentMultiplier;
+        if (candleColumns.length > 0) {
+            const currentColumn = candleColumns[candleColumns.length-1];
+            const candleElement = createCandle(currentCandle);
+            currentColumn.element.appendChild(candleElement);
+            currentColumn.candles.push({...currentCandle});
+        }
+        
+        updateChart();
+    }
+    
+    startButton.addEventListener('click', startGame);
+    cashoutButton.addEventListener('click', cashout);
+    
+    multiplierDisplay.textContent = '1.00x';
+    crashLine.style.top = '100%';
+</script>
+
+</body>
+</html>
+
+{% endblock %}
