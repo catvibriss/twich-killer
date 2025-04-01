@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <div class="logo"><a href="/">GhostCasino</a></div>
+        <div class="logo"><a href="/">KAFIFOissue</a></div>
         <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul>
@@ -23,7 +23,17 @@
                 {% endif%} {% endcomment %}
                 <li><a href="/profile/" class="idinaxui">Профиль</a></li>
                 
-                <li><a href="/balance/" class="balance">Баланс: ₽</a></li>
+                {% if not login %}
+                <li><a href="/balance/">Вы вошли в аккаунт, и ваш никнейм аккаунта: {{ balance }}₽</a></li>
+                {% endif %}
+                
+                {% if not login %}
+                <li><a href="/balance/">Баланс: {{ balance }}₽</a></li>
+                {% endif %}
+
+                {% if login %}
+                <li><a href="/yobaniuy_login/" class="balance">РЕГИСТРАЦИЯ/ЛОГИН:</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

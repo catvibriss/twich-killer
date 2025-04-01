@@ -32,6 +32,8 @@ function startGameLoop() {
 }
 
 function spinArrow() {
+    debugger;
+    balance = 2000;
     if (betAmount > balance || betAmount < 0) {
         alert("Введите корректную ставку!");
         betAmount = 0;
@@ -42,7 +44,7 @@ function spinArrow() {
     let timerElement = document.getElementById("timer");
     timerElement.innerText = "0"; // Останавливаем таймер
 
-    let arrow = document.querySelector(".arrow");
+    let arrow = document.querySelector(".roulette-wheel");
 
 
     // Разбиение множителей на диапазоны градусов
@@ -240,7 +242,7 @@ function loadXMLDoc() {
                console.log(obj["out"])
            }
            else if (xmlhttp.status == 400) {
-              alert('There was an error 400');
+                alert('There was an error 400');
            }
            else {
                alert('something else other than 200 was returned');
