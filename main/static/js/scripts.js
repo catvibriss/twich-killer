@@ -228,3 +228,31 @@ function toggleTab(tab) {
     document.querySelector(`.submenu-btn[onclick="toggleTab('${tab}')"]`).classList.add('active');
 }
 
+var intervalID = window.setInterval(interval, 1000);
+
+function loadXMLDoc() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) { // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status == 200) {
+               let obj = JSON.parse(xmlhttp.responseText);
+               console.log(obj["out"])
+           }
+           else if (xmlhttp.status == 400) {
+              alert('There was an error 400');
+           }
+           else {
+               alert('something else other than 200 was returned');
+           }
+        }
+    };
+
+    xmlhttp.open("GET", "/roulette_get", true);
+    xmlhttp.send();
+}
+
+function interval() {
+    loadXMLDoc();
+}
+
