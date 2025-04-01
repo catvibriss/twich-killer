@@ -3,7 +3,6 @@ import requests
 from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.conf import settings
-from .models import CustomUser
 import json
 import random
 from django.http import JsonResponse
