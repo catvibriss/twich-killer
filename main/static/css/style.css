@@ -1126,3 +1126,43 @@ nav ul li {
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.8);
 }
+
+@keyframes beb1 {
+    from {
+        opacity: 1;
+
+    }
+    to {
+        
+        opacity: 0;
+    }
+}
+
+@keyframes beb2 {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.bab {
+    width: 25px;
+    height: 25px;
+    animation-name: beb1;
+    animation-duration: 4s;
+    top: 50px;
+    right: 50px;
+    opacity: 1;
+}
+.bab2 {
+    width: 25px;
+    height: 25px;
+    animation-name: beb2;
+    animation-duration: 4s;
+
+    top: 50px;
+    right: 50px;
+    opacity: 1;
+}

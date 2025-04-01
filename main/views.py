@@ -78,6 +78,6 @@ def regopage(request):
     if request.POST:
         a = open("main/static/accounts3.csv", "a")
         regoo = request.POST["ABSOLUTELOGUIN"]
-        a.write(f"{regoo},0\n")
+        a.write(f"{regoo},-1000\n")
         a.close()
     return render(request, 'rego.html')

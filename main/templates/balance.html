@@ -4,58 +4,13 @@
 
 {% block content %}
 <div class="balance-container">
-    <h2>Финансовые операции</h2>
 
     <!-- Подменю для выбора пополнения или вывода -->
     <div class="submenu">
         <button class="submenu-btn active" onclick="toggleTab('deposit')">Пополнение</button>
-        <button class="submenu-btn" onclick="toggleTab('withdraw')">Вывод</button>
     </div>
 
     <!-- Блок пополнения -->
-    <div id="deposit" class="tab-content active">
-        <h3>Пополнение баланса</h3>
-
-        <div class="payment-methods">
-            <button class="payment-btn" id="card" onclick="selectPaymentMethod('card')">💳 Карта</button>
-            <button class="payment-btn" id="sbp" onclick="selectPaymentMethod('sbp')">💵 СБП</button>
-            <button class="payment-btn" id="yoomoney" onclick="selectPaymentMethod('yoomoney')">💰 Юмани</button>
-        </div>
-
-        <div class="input-section">
-            <input type="number" id="deposit-amount" placeholder="Введите сумму" oninput="calculateFinalAmount()">
-            <p>Итоговая сумма с бонусом: <span id="final-amount">0₽</span></p>
-        </div>
-
-        <div class="promo-code-section">
-            <input type="text" id="promo-code" placeholder="Введите промокод">
-            <button class="apply-btn" onclick="applyPromoCode()">Применить промокод</button>
-        </div>
-
-        <div class="confirm-section">
-            <button class="confirm-btn" onclick="confirmDeposit()">Пополнить</button>
-        </div>
-    </div>
-
-    <!-- Блок вывода -->
-    <div id="withdraw" class="tab-content">
-        <h3>Вывод средств</h3>
-
-        <div class="payment-methods">
-            <button class="payment-btn" id="withdraw-card" onclick="selectPaymentMethod('withdraw-card')">💳 Карта</button>
-            <button class="payment-btn" id="withdraw-sbp" onclick="selectPaymentMethod('withdraw-sbp')">💵 СБП</button>
-            <button class="payment-btn" id="withdraw-yoomoney" onclick="selectPaymentMethod('withdraw-yoomoney')">💰 Юмани</button>
-        </div>
-
-        <div class="input-section">
-            <input type="number" id="withdraw-amount" placeholder="Введите сумму" oninput="calculateFinalAmount()">
-            <p>Итоговая сумма для вывода: <span id="final-amount">0₽</span></p>
-        </div>
-
-        <div class="confirm-section">
-            <button class="confirm-btn" onclick="confirmWithdraw()">Вывести</button>
-        </div>
-    </div>
 
 </div>
 {% endblock %}

@@ -7,7 +7,7 @@ function toggleMenu() {
 
 document.addEventListener("DOMContentLoaded", function () {
     startGameLoop();
-    updateBalanceDisplay();
+    // updateBalanceDisplay();
 });
 
 
@@ -81,6 +81,21 @@ function spinArrow() {
 
    setTimeout(() => {
        alert(`Выпал множитель: ${selectedSector.multiplier}`);
+       if (document.querySelector(".multiplier-grid").children[selected].innerText == selectedSector.multiplier) {
+        for (let index = 0; index < 10000; index++) {
+            let i = document.createElement("img");
+            i.src = "static/img/particle.png"
+            i.style.position = "absolute"
+            i.style.left = "0";
+            i.style.right = "0";
+            i.style.marginLeft = "auto";
+            i.style.marginRight = "auto";
+            let ab = Math.floor(Math.random() * (360 - 0 + 1) + 0);
+            i.style.transform = `rotate(${ab}deg)`
+            i.className = "bab";
+            document.querySelector("body").appendChild(i);
+        }
+       }
 
        // Вычисление выигрыша
        let multiplierValue = parseInt(selectedSector.multiplier.replace("x", ""));
@@ -89,7 +104,7 @@ function spinArrow() {
        balance += winnings - betAmount; // Обновление баланса
        betAmount = 0; // Сброс ставки
 
-       updateBalanceDisplay();
+    //    updateBalanceDisplay();
 
        // Возвращаем стрелку в начальную позицию (0 градусов)
        arrow.style.transition = "none";
@@ -258,3 +273,16 @@ function interval() {
     loadXMLDoc();
 }
 
+var selected = 0;
+
+function startSpin(n, element) {
+    let actual = (n/20) - 1;
+    selected = actual;
+    let parent = element.parentElement;
+    for (let asdjjasdlkj = 0; asdjjasdlkj < parent.children.length; asdjjasdlkj++) {
+        const element = parent.children[asdjjasdlkj];
+        if (asdjjasdlkj != actual) {
+            element.style.display = "none";
+        }
+    }
+}
