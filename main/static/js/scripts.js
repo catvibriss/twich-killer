@@ -19,7 +19,9 @@ function startGameLoop() {
     let countdown = setInterval(() => {
         if (!isSpinning) {
             timeLeft--;
-            timerElement.innerText = timeLeft;
+            try {timerElement.innerText = timeLeft;}
+            catch {}
+            
         }
 
         if (timeLeft <= 0) {
@@ -39,7 +41,11 @@ function spinArrow() {
 
     isSpinning = true;
     let timerElement = document.getElementById("timer");
-    timerElement.innerText = "0"; // Останавливаем таймер
+    try {
+        timerElement.innerText = "0";
+    } catch  {
+    }
+     // Останавливаем таймер
 
     let arrow = document.querySelector(".roulette-wheel");
 
@@ -68,14 +74,17 @@ function spinArrow() {
    let finalRotation = 1440 + randomAngle; // 1440 = 4 полных оборота + угол сектора
 
    // Устанавливаем начальную позицию перед вращением
+   try {
+    
    arrow.style.transition = "none";
    arrow.style.transform = "rotate(0deg)";
-
    setTimeout(() => {
-       arrow.style.transition = "transform 3s ease-out";
-       arrow.style.transform = `rotate(${finalRotation}deg)`;
-   }, 50); // Небольшая задержка, чтобы сброс угла сработал
-
+    arrow.style.transition = "transform 3s ease-out";
+    arrow.style.transform = `rotate(${finalRotation}deg)`;
+}, 50);
+} catch  {
+    
+   }
    setTimeout(() => {
        alert(`Выпал множитель: ${selectedSector.multiplier}`);
        debugger;
