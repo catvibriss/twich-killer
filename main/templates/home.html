@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}Главная - GhostCasino{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="casino-info">
+        <h2>GhostCasino — честность, скорость, адреналин!</h2>
+        <p>
+            В <strong>GhostCasino</strong> мы создаем идеальное место для азартных игроков.  
+            Наши алгоритмы обеспечивают честность, а выигрыши поступают на счет мгновенно.  
+            Мы предлагаем лучшие игровые режимы, разработанные для максимального комфорта и удовольствия.  
+        </p>
+        <p>
+            Вступайте в игру, проверяйте свою удачу и наслаждайтесь честным казино с прозрачной системой выплат!  
+            GhostCasino — это ваш безопасный и динамичный мир азарта.
+        </p>
+    </div>
+    {% comment %} <a href="{% provider_login_url 'google' %}">
+        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Войти через Google">
+    </a> {% endcomment %}
+    
+
+    <div class="game-container">
+        <div class="game-box">
+            <h1 class="game-title">CRASH</h1>
+            <p class="game-mode">💥 Мгновенная игра</p>
+            <a href="#" class="play-button">Играть</a>
+        </div>
+        <div class="game-box">
+            <h1 class="game-title">ROULETTE</h1>
+            <p class="game-mode">🎡 Классическая рулетка</p>
+            <a href="/roulette/" class="play-button">Играть</a>
+        </div>
+        <div class="game-box">
+            <h1 class="game-title">MINER</h1>
+            <p class="game-mode">⛏️ Минное поле</p>
+            <a href="#" class="play-button">Играть</a>
+        </div>
+        <div class="game-box disabled">
+            <h1 class="game-title">LIVE</h1>
+            <p class="game-mode">📺 Игра с реальными дилерами</p>
+            <p class="coming-soon">Скоро...</p>
+        </div>
+        <div class="game-box disabled">
+            <h1 class="game-title">SLOTS</h1>
+            <p class="game-mode">🎰 Классические автоматы</p>
+            <p class="coming-soon">Скоро...</p>
+        </div>
+    </div>
+
+    
+    <div class="users-online">
+        <h2>Пользователи онлайн</h2>
+        <div class="user-cards">
+            <div class="user-box">
+                <img src="https://i.pravatar.cc/100" alt="User Avatar">
+                <div class="user-info">
+                    <p class="user-name">Алексей</p>
+                    <p class="user-time">🕒 120 часов</p>
+                </div>
+                <span class="status-dot"></span>
+            </div>
+    
+            <div class="user-box">
+                <img src="https://i.pravatar.cc/100?img=3" alt="User Avatar">
+                <div class="user-info">
+                    <p class="user-name">Мария</p>
+                    <p class="user-time">🕒 85 часов</p>
+                </div>
+                <span class="status-dot"></span>
+            </div>
+    
+            <div class="user-box">
+                <img src="https://i.pravatar.cc/100?img=5" alt="User Avatar">
+                <div class="user-info">
+                    <p class="user-name">Дмитрий</p>
+                    <p class="user-time">🕒 97 часов</p>
+                </div>
+                <span class="status-dot"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

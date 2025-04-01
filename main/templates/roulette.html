@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Рулетка - GhostCasino{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рулетка - GhostCasino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2 class="game-title"><center><strong>Испытай удачу в рулетке!</strong></center></h2>
+<center>
+<div class="rul-container">
+    <div class="roulette-timer">
+        <p>Следующий спин через: <span id="timer">10</span> сек</p>
+    </div>
+    <!-- Панель ставок (слева) -->
+    <div class="bet-panel">
+        <h2>Ваша ставка</h2>
+        <div class="bet-input">
+            <input type="number" id="bet-amount" placeholder="Введите сумму">
+            <button class="half" onclick="adjustBet('half')">1/2</button>
+            <button class="double" onclick="adjustBet('double')">x2</button>
+        </div>
+    
+        <div class="quick-bet">
+            <button onclick="setBet(1)">+1</button>
+            <button onclick="setBet(10)">+10</button>
+            <button onclick="setBet(100)">+100</button>
+            <button onclick="setBet('all')">Все</button>
+        </div>
+    
+        <h2>Выберите множитель</h2>
+        <div class="multiplier-grid">
+            <button class="multiplier x2" onclick="startSpin(2)">x2</button>
+            <button class="multiplier x3" onclick="startSpin(3)">x3</button>
+            <button class="multiplier x5" onclick="startSpin(5)">x5</button>
+            <button class="multiplier x20" onclick="startSpin(20)">x20</button>
+        </div>
+    </div>
+    
+
+    <!-- Колесо рулетки (по центру) -->
+    <div class="roulette-wrapper">
+        <div class="roulette-wheel"></div> <!-- Пустотелая рулетка -->
+        <div class="arrow"></div> <!-- Вращающаяся стрелка -->
+    </div>
+</div>
+</center>
+
+
+</body>
+</html>
+
+
+{% endblock %}
