@@ -64,6 +64,7 @@ function spinArrow() {
     //     isSpinning = false;
     //     startGameLoop(); // Запускаем новый цикл после остановки стрелки
     // }, 3100);
+    startGame();
 }
 
 
