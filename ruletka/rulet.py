@@ -10,6 +10,5 @@ def start_round(bet):
     print('Ваш выигрыш:', win_amount)
     print(f'множитель: {m}')
 
-bet = float(input("Введите ставку: "))
 start_round(bet)
 

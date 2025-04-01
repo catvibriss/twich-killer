@@ -18,10 +18,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', 
     'main',  # Наше приложение
 ]
 
@@ -30,37 +26,6 @@ INSTALLED_APPS = [
 MY SETTINGS
 
 """
-
-ACCOUNT_LOGIN_METHODS = {"email"}
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_LOGOUT_ON_GET = True
-
-SOCIALACCOUNT_LOGIN_ON_GET = True
-
-SITE_ID = 1
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-LOGIN_REDIRECT_URL = '/'  # Куда перекидывать после входа
-LOGOUT_REDIRECT_URL = '/'  # Куда перекидывать после выхода
-ACCOUNT_EMAIL_VERIFICATION = "none"  # Отключаем проверку email для упрощения
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': "1080005356830-rt7frj2pg0vvlc3emrmb80cmb8cmnn9p.apps.googleusercontent.com",
-            'secret': "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",
-            'key': ''
-        }
-    }
-}
-
-AUTH_USER_MODEL = 'main.CustomUser'
 
 
 

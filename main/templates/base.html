@@ -1,5 +1,4 @@
 {% load static %}
-{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -19,12 +18,12 @@
                 <li><a href="/">Главная</a></li>
                 <li><a href="/support/">Поддержка</a></li>
                 <li><a href="/about/">О нас</a></li>
-                {% if user.is_authenticated %}
+                {% comment %} {% if user.is_authenticated %}
                     <li><img src="{{ user.avatar }}" alt="User Avatar" class="profile-avatar-nav"></li>
-                {% endif%}
+                {% endif%} {% endcomment %}
                 <li><a href="/profile/" class="idinaxui">Профиль</a></li>
                 
-                <li><a href="/balance/" class="balance">Баланс: {{ user.balance }}₽</a></li>
+                <li><a href="/balance/" class="balance">Баланс: ₽</a></li>
             </ul>
         </nav>
     </header>

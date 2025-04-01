@@ -1,34 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
 {% block title %}Профиль - GhostCasino{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<div class="profile-container">
-    <div class="profile-card">
-        <img src="{{ user.avatar }}" alt="User Avatar" class="profile-avatar">
-        <h3 class="profile-name">Name: {{ user.username }}</h3>
-        <h3 class="profile-name">Email: {{ user.email }}</h3>
-        {% comment %} <h2 class="profile-name">{{ user.username }}</h2> {% endcomment %}
 
-
-        <div class="profile-actions">
-            <a href="{% url 'account_logout' %}" class="logout-button">🚪 Выйти</a>
-        </div>
-    </div>
-</div>
-{% else %}
 <div class="notloginpan">
     <div class="notlogin">
         <center>
         <h1 class="enttit">Войти</h1>
-        <a href="{% provider_login_url 'google' %}">
-            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Войти через Google">
-        </a>
         </center>
     </div>
 </div>
-{% endif %} 
 
 {% endblock %}
