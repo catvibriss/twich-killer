@@ -3,8 +3,6 @@ function toggleMenu() {
     nav.classList.toggle("active");
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
     startGameLoop();
     // updateBalanceDisplay();
