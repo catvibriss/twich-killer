@@ -3,7 +3,10 @@ import requests
 from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.conf import settings
-
+from .models import CustomUser
+import json
+import random
+from django.http import JsonResponse
 
 def home(request):
     return render(request, 'home.html')
@@ -22,3 +25,11 @@ def roulette(request):
 
 def balance(request):
     return render(request, 'balance.html')
+
+def roulette_get(request):
+    rand = random.randint(0,100)
+    res = {
+        "success": 1,
+        "out": rand
+    }
+    return JsonResponse(res)
