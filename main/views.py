@@ -46,11 +46,23 @@ def roulette(request):
     }
     return render(request, 'roulette.html', context=context)
 
+def crash(request):
+    return render(request, 'crash.html')
+
+
 def balance(request):
     return render(request, 'balance.html')
 
 def roulette_get(request):
     rand = random.randint(0,100)
+    res = {
+        "success": 1,
+        "out": rand
+    }
+    return JsonResponse(res)
+
+def crash_get(request):
+    rand = random.uniform(0.1,0.99)
     res = {
         "success": 1,
         "out": rand
