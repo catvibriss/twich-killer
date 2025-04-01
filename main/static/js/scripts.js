@@ -32,7 +32,6 @@ function startGameLoop() {
 }
 
 function spinArrow() {
-    debugger;
     balance = 2000;
     if (betAmount > balance || betAmount < 0) {
         alert("Введите корректную ставку!");
@@ -81,20 +80,99 @@ function spinArrow() {
 
    setTimeout(() => {
        alert(`Выпал множитель: ${selectedSector.multiplier}`);
+       debugger;
        if (document.querySelector(".multiplier-grid").children[selected].innerText == selectedSector.multiplier) {
-        for (let index = 0; index < 10000; index++) {
+        if (selected == 0) {
+            let aba = parseInt(document.querySelector("#bet-amount").value)/2*-1;
+            // TODO: ajax reduce
+            let xhr = new XMLHttpRequest();
+
+let url = `/money_add/?amount=${aba}`;
+
+xhr.open("GET", url);
+
+xhr.send();
+
+xhr.onload = () => console.log(xhr.responseText);
+    }
+
+         else if (selected == 1){
+
+            let aba = parseInt(document.querySelector("#bet-amount").value)/3*-1;
+            
+            // TODO: ajax
+            let xhr = new XMLHttpRequest();
+
+let url = `/money_add/?amount=${aba}`;
+
+xhr.open("GET", url);
+
+xhr.send();
+
+xhr.onload = () => console.log(xhr.responseText);
+        } else if (
+            selected == 2
+        ){ 
+            let aba = parseInt(document.querySelector("#bet-amount").value)/5*-1;
+            
+            // TODO: ajax
+            let xhr = new XMLHttpRequest();
+
+let url = `/money_add/?amount=${aba}`;
+
+xhr.open("GET", url);
+
+xhr.send();
+
+xhr.onload = () => console.log(xhr.responseText);
+        } else if (
+            selected == 3
+        ) { 
+            
+            let aba = parseInt(document.querySelector("#bet-amount").value)/20*-1;
+            // TODO: ajax
+            let xhr = new XMLHttpRequest();
+
+let url = `/money_add/?amount=${aba}`;
+
+xhr.open("GET", url);
+
+xhr.send();
+
+xhr.onload = () => console.log(xhr.responseText);
+        }
+        for  (let index = 0; index < 100; index++) {
             let i = document.createElement("img");
-            i.src = "static/img/particle.png"
+            i.src = "/static/img/particle.png"
+            let delay = 2000+(index*10)
             i.style.position = "absolute"
-            i.style.left = "0";
-            i.style.right = "0";
-            i.style.marginLeft = "auto";
-            i.style.marginRight = "auto";
-            let ab = Math.floor(Math.random() * (360 - 0 + 1) + 0);
-            i.style.transform = `rotate(${ab}deg)`
+            let ab = Math.floor(Math.random() * (1 - 0 + 1) + 0);
+            let ab2 = Math.floor(Math.random() * (360 - 0 + 1) + 0);
+            i.style.transform = `rotate(${ab2}deg)`
+            i.style.animationDelay = `${delay}ms`
+            i.style.transitionDelay = `${delay}ms`
+            if (ab == 0) {
+
             i.className = "bab";
+            i.style.animationName = "beb1"
+        } else {
+            i.className = "bab2";
+
+            i.style.animationName = "beb2"
+        }
             document.querySelector("body").appendChild(i);
         }
+       } else {
+        // TODO: ajax +(number) to the account
+        let xhr = new XMLHttpRequest();
+        let aba = parseInt(document.querySelector("#bet-amount").value);
+let url = `/money_add/?amount=${aba}`;
+
+xhr.open("GET", url);
+
+xhr.send();
+
+xhr.onload = () => console.log(xhr.responseText);
        }
 
        // Вычисление выигрыша
